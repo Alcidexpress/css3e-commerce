@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto Destacado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .contenedor {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+        }
+        
+        .filtros {
+            width: 250px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .contenedor-productos {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            width: 100%;
+            margin-left: 20px;
+        }
+        @media (max-width: 768px) {
+            .contenedor {
+                flex-direction: column;
+            }
+            .filtros {
+                display: none;
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .mostrar-filtros {
+                display: block;
+            }
+            .contenedor-productos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .producto {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .producto:hover {
+            transform: scale(1.05);
+        }
+        .producto__imagen {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .producto__nombre {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .producto__precio {
+            font-size: 16px;
+            color: #888;
+        }
+        .precio--oferta {
+            color: #971b0d;
+            font-weight: bold;
+        }
+        .producto__boton {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px;
+            background: #09a188;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .producto__boton:hover {
+            background: #219150;
+        }
+        .contador-promocion {
+    background-color: #dc3545;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+    animation: parpadeo 1s infinite alternate;
+}
+
+@keyframes parpadeo {
+    from { opacity: 1; }
+    to { opacity: 0.7; }
+}
+    </style>
+</head>
+<body>
+    
+    <div class="contenedor">
+        <button onclick="toggleFiltros()">Mostrar Filtros</button>
+        <div class="filtros" id="filtroPanel">
+            <h3>Filtrar por categoría</h3>
+            <select id="filtro" onchange="filtrarProductos()">
+                <option value="todos">Todos</option>
+                <option value="destacado">Destacado</option>
+                <option value="nuevo">Nuevo</option>
+                <option value="especial">Especial</option>
+            </select>
+         
+        </div>
+
+    
+        <div class="hero">
+            <div class="hero-slide active" data-text="50% de descuento">
+                <img src="imagenes/imoferta1.jpg" alt="50% de descuento" >
+            </div>
+            <div class="hero-slide" data-text="Envío Gratis">
+                <img src="imagenes/imoferta2.jpg" alt="Envío Gratis">
+            </div>
+            <div class="hero-slide" data-text="Compra Segura">
+                <img src="imagenes/imoferta3.jpg" alt="Compra Segura">
+            </div>
+            <div class="contador-promocion">
+                ¡Oferta termina en <span id="tiempo-restante"></span>!
+            </div>
+        </div>
+        <div class="contenedor-productos" id="productos">
+            <div class="producto" data-categoria="destacado">
+                <a href="contenido/producto1.html">
+                    <img src="productos/img1.jpg" alt="Producto" class="producto__imagen">
+                </a>
+                <h2 class="producto__nombre">Producto Destacado</h2>
+                <p class="producto__precio"><span class="precio--oferta">$24.99</span> <del>$29.99</del></p>
+                <button class="producto__boton">Añadir al carrito</button>
+            </div>
+            <div class="producto" data-categoria="destacado">
+                <a href="contenido/producto2.html">
+                    <img src="productos/img2.jpg" alt="Producto" class="producto__imagen">
+                </a>
+                <h2 class="producto__nombre">Producto Destacado</h2>
+                <p class="producto__precio"><span class="precio--oferta">$29.99</span> <del>$29.99</del></p>
+                <button class="producto__boton">Añadir al carrito</button>
+            </div>
+            <div class="producto" data-categoria="nuevo">
+                <a href="contenido/producto3.html">
+                    <img src="productos/img3.jpg" alt="Producto" class="producto__imagen">
+                </a>
+                <h2 class="producto__nombre">Recién llegado</h2>
+                <p class="producto__precio"><span class="precio--oferta">$89.99</span> <del>$29.99</del></p>
+                <button class="producto__boton">Añadir al carrito</button>
+            </div>
+            <div class="producto" data-categoria="nuevo">
+                <a href="contenido/producto4.html">
+                    <img src="productos/img4.jpg" alt="Producto" class="producto__imagen">
+                </a>
+                <h2 class="producto__nombre">Nuevo Lanzamiento</h2>
+                <p class="producto__precio"><span class="precio--oferta">$49.99</span> <del>$59.99</del></p>
+                <button class="producto__boton">Añadir al carrito</button>
+            </div>
+            <div class="producto" data-categoria="especial">
+                <a href="contenido/producto5.html">
+                    <img src="productos/img5.jpg" alt="Producto" class="producto__imagen">
+                </a>
+                <h2 class="producto__nombre">Edición Especial</h2>
+                <p class="producto__precio"><span class="precio--oferta">$99.99</span> <del>$129.99</del></p>
+                <button class="producto__boton">Añadir al carrito</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleFiltros() {
+            document.getElementById('filtroPanel').classList.toggle('mostrar-filtros');
+        }
+        function filtrarProductos() {
+            const filtro = document.getElementById('filtro').value;
+            const productos = document.querySelectorAll('.producto');
+            productos.forEach(producto => {
+                producto.style.display = (filtro === 'todos' || producto.getAttribute('data-categoria') === filtro) ? 'block' : 'none';
+            });
+        function actualizarContador() {
+    const fechaFin = new Date('2024-12-31T23:59:59').getTime(); // Fecha límite de la promoción
+    const ahora = new Date().getTime();
+    const diferencia = fechaFin - ahora;
+
+    if (diferencia > 0) {
+        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+        document.getElementById('tiempo-restante').innerText = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+    } else {
+        document.getElementById('tiempo-restante').innerText = '¡La oferta ha terminado!';
+        clearInterval(intervalo);
+    }
+}
+
+actualizarContador(); // Llama a la función inmediatamente
+const intervalo = setInterval(actualizarContador, 1000); // Actualiza cada segundo
+        }
+    </script>
+</body>
+</html>

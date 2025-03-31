@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto Destacado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            display: flex;
+        }
+        .filtros {
+            width: 250px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .contenedor-productos {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+            margin-left: 20px;
+        }
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                align-items: center;
+            }
+            .filtros {
+                display: none;
+                width: 100%;
+            }
+            .contenedor-productos {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .filtros-activo {
+                display: block;
+            }
+            .btn-filtros {
+                display: block;
+                margin-bottom: 10px;
+                padding: 10px;
+                background: #09a188;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        }
+        .producto {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .producto:hover {
+            transform: scale(1.05);
+        }
+        .producto__imagen {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .producto__nombre {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .producto__precio {
+            font-size: 16px;
+            color: #888;
+        }
+        .precio--oferta {
+            color: #971b0d;
+            font-weight: bold;
+        }
+        .producto__boton {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px;
+            background: #09a188;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .producto__boton:hover {
+            background: #219150;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn-filtros" onclick="toggleFiltros()">Mostrar Filtros</button>
+    <div class="filtros" id="panel-filtros">
+        <h3>Filtrar Productos</h3>
+        <label><input type="checkbox"> Recien llegado</label><br>
+        <label><input type="checkbox"> Mas vendidos</label><br>
+        <label><input type="checkbox"> Producto Destacado</label>
+    </div>
+    <div class="contenedor-productos">
+        <div class="producto">
+            <a href="contenido/producto1.html">
+                <img src="productos/img1.jpg" alt="Producto" class="producto__imagen">
+            </a>
+            <h2 class="producto__nombre">Producto Destacado</h2>
+            <p class="producto__precio"><span class="precio--oferta">$24.99</span> <del>$29.99</del></p>
+            <button class="producto__boton" onclick="location.href='carrito.html'">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+            <a href="contenido/producto2.html">
+                <img src="productos/img2.jpg" alt="Producto" class="producto__imagen">
+            </a>
+            <h2 class="producto__nombre">Producto Destacado</h2>
+            <p class="producto__precio"><span class="precio--oferta">$29.99</span> <del>$29.99</del></p>
+            <button class="producto__boton" onclick="location.href='carrito.html'">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+            <a href="contenido/producto3.html">
+                <img src="productos/img3.jpg" alt="Producto" class="producto__imagen">
+            </a>
+            <h2 class="producto__nombre">Recien llegado</h2>
+            <p class="producto__precio"><span class="precio--oferta">$89.99</span> <del>$29.99</del></p>
+            <button class="producto__boton" onclick="location.href='carrito.html'">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+            <a href="contenido/producto4.html">
+                <img src="productos/img4.jpg" alt="Producto" class="producto__imagen">
+            </a>
+            <h2 class="producto__nombre">MAs Vendidos</h2>
+            <p class="producto__precio"><span class="precio--oferta">$49.99</span> <del>$59.99</del></p>
+            <button class="producto__boton" onclick="location.href='carrito.html'">Añadir al carrito</button>
+        </div>
+        <div class="producto">
+            <a href="contenido/producto5.html">
+                <img src="productos/img5.jpg" alt="Producto" class="producto__imagen">
+            </a>
+            <h2 class="producto__nombre">Edición Especial</h2>
+            <p class="producto__precio"><span class="precio--oferta">$99.99</span> <del>$129.99</del></p>
+            <button class="producto__boton" onclick="location.href='carrito.html'">Añadir al carrito</button>
+        </div>
+    </div>
+    <script>
+        function toggleFiltros() {
+            document.getElementById("panel-filtros").classList.toggle("filtros-activo");
+        }
+    </script>
+</body>
+</html>
+
+
+
+

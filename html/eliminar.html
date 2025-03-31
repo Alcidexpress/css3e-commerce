@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto Destacado</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #161515;
+            padding: 20px;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+        }
+        .hero img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-slide {
+            display: none;
+            position: relative;
+        }
+        .hero-slide.active {
+            display: block;
+        }
+        .hero-slide::after {
+            content: attr(data-text);
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 5px;
+            animation: blink 1.5s infinite alternate;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-slide active" data-text="50% de descuento">
+            <img src="imagenes/imoferta1.jpg" alt="50% de descuento">
+        </div>
+        <div class="hero-slide" data-text="Envío Gratis">
+            <img src="imagenes/imoferta2.jpg" alt="Envío Gratis">
+        </div>
+        <div class="hero-slide" data-text="Compra Segura">
+            <img src="imagenes/imoferta3.jpg" alt="Compra Segura">
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll(".hero-slide");
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove("active"));
+            slides[index].classList.add("active");
+        }
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+        }, 3000);
+    </script>
+</body>
+</html>

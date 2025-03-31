@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Producto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .producto-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            text-align: center;
+        }
+        .producto__imagen {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .galeria {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+        .galeria img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .galeria img:hover {
+            transform: scale(1.1);
+        }
+        .producto__video {
+            width: 100%;
+            height: 300px;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+        .variantes div {
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(196, 93, 79, 0.2);
+            transition: background 0.3s;
+        }
+        .variantes div:hover, .seleccionado {
+            background: #04e4b3;
+        }
+        .precio {
+            font-size: 20px;
+            color: #971b0d;
+            font-weight: bold;
+        }
+        .descripcion {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+        .valoracion {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #f39c12;
+        }
+        .comentarios {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #221414;
+        }
+        /* Estilos del carrito */
+        #carrito-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #carrito {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 300px;
+            height: 80vh;
+            background-color: #f0f0f0;
+            padding: 20px;
+            transform: translateX(100%); /* Inicialmente oculto */
+            transition: transform 0.3s ease-in-out;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+            overflow-y: auto; /* Agrega scroll si el contenido excede la altura */
+        }
+
+        #carrito.mostrar {
+            transform: translateX(0); /* Mostrar el carrito */
+        }
+
+        #cerrar-carrito {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ccc;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="producto-container">
+        <img src="productos/img3.jpg" alt="Producto" id="imagen-principal" class="producto__imagen">
+
+        <div class="galeria">
+            <img src="productos/img1.jpg" alt="Variante 1" onclick="cambiarImagen('productos/img1.jpg')">
+            <img src="productos/img2.jpg" alt="Variante 2" onclick="cambiarImagen('productos/img2.jpg')">
+            <img src="productos/img3.jpg" alt="Variante 3" onclick="cambiarImagen('productos/img3.jpg')">
+        </div>
+
+        <video controls class="producto__video">
+            <source src="productos/video.mp4" type="video/mp4">
+            Tu navegador no soporta videos.
+        </video>
+
+        <h2>Precio: <span class="precio">$24.99</span></h2>
+        <p class="descripcion">Descripción del producto: Camiseta de algodón 100%, cómoda y transpirable.</p>
+        <p class="valoracion">⭐ 4.8 (320 valoraciones)</p>
+        <p class="comentarios">"Muy buena calidad y envío rápido!" - Cliente</p>
+
+        <h2>Elige una Variante</h2>
+        <div class="variantes" id="colores">
+            <div onclick="seleccionarVariante(this)">Rojo</div>
+            <div onclick="seleccionarVariante(this)">Azul</div>
+            <div onclick="seleccionarVariante(this)">Negro</div>
+        </div>
+
+        <h2>Selecciona Talla</h2>
+        <div class="variantes" id="tallas">
+            <div onclick="seleccionarVariante(this)">S</div>
+            <div onclick="seleccionarVariante(this)">M</div>
+            <div onclick="seleccionarVariante(this)">L</div>
+        </div>
+
+        <p class="descripcion">Los impuestos se aplicarán después de añadir la dirección.</p>
+    </div>
+
+    <button id="carrito-btn">Carrito</button>
+
+    <div id="carrito">
+        <h2>Carrito de Compras</h2>
+        <div id="productos-carrito">
+            </div>
+        <p id="total">Total: $0.00</p>
+        <button id="cerrar-carrito">Cerrar</button>
+    </div>
+
+    <script>
+        function cambiarImagen(ruta) {
+            document.getElementById('imagen-principal').src = ruta;
+        }
+
+        function seleccionarVariante(elemento) {
+            let hermanos = elemento.parentNode.children;
+            for (let i = 0; i < hermanos.length; i++) {
+                hermanos[i].classList.remove('seleccionado');
+            }
+            elemento.classList.add('seleccionado');
+        }
+
+        // JavaScript del carrito
+        const carritoBtn = document.getElementById('carrito-btn');
+        const carrito = document.getElementById('carrito');
+        const cerrarCarritoBtn = document.getElementById('cerrar-carrito');
+
+        carritoBtn.addEventListener('click', () => {
+            carrito.classList.add('mostrar');
+        });
+
+        cerrarCarritoBtn.addEventListener('click', () => {
+            carrito.classList.remove('mostrar');
+        });
+    </script>
+</body>
+</html>

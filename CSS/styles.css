@@ -1,0 +1,38 @@
+#add-to-cart-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+#add-to-cart-btn:active {
+    background-color: #218838;
+}
+
+#add-to-cart-btn.check {
+    background-color: #218838;
+    color: white;
+}
+
+#add-to-cart-btn::after {
+    content: '✔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 20px;
+    color: white;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#add-to-cart-btn.check::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
